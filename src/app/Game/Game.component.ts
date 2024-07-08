@@ -25,8 +25,12 @@ export class GameComponent implements OnInit {
   player: Player = { lane: 1 };
   obstacles: Obstacle[] = [];
   gameLoop!: Subscription;
+
   speedIncrease!: Subscription;
   speed = 2;
+
+  scoreIncrease!: Subscription;
+  score = 0;
 
   ngOnInit() {
     this.startGame();
@@ -64,7 +68,12 @@ export class GameComponent implements OnInit {
   updateObstacles() {
     this.obstacles = this.obstacles.map(obstacle => {
       return { ...obstacle, position: obstacle.position + this.speed };
-    }).filter(obstacle => obstacle.position < 100);
+    }).filter(obstacle => {
+      if (obstacle.position > 99) {
+        this.increaseScore(50)
+      }
+      return obstacle.position < 100
+    });
 
     if (Math.random() < 5) {
       this.addObstacle();
@@ -73,6 +82,10 @@ export class GameComponent implements OnInit {
 
   increaseSpeed(difficulty: number): void {
     this.speed += difficulty;
+  }
+
+  increaseScore(score: number): void {
+    this.score += score;
   }
 
   addObstacle() {
@@ -88,7 +101,7 @@ export class GameComponent implements OnInit {
     this.obstacles.forEach(obstacle => {
       if (obstacle.lane === this.player.lane && obstacle.position > 90 && obstacle.position < 100) {
         // Collision detected
-        alert('Game Over!');
+        alert(`Game Over! Score: ${this.score}` );
         this.gameLoop.unsubscribe();
       }
     });
