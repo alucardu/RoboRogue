@@ -1,0 +1,28 @@
+.game-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 100vh;
+}
+
+.lane {
+  width: 30%;
+  height: 100%;
+  position: relative;
+}
+
+app-player {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background-color: blue;
+}
+
+app-obstacle {
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  background-color: red;
+}

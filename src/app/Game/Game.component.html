@@ -1,0 +1,16 @@
+<div class="game-container">
+  @for (lane of lanes; track lane; let laneIndex = $index) {
+    <div class="lane">
+      @if (player.lane === lane) {
+        <app-player/>
+      }
+
+      @for (obstacle of obstacles; track obstacle) {
+        @if (obstacle.lane === laneIndex) {
+          <app-obstacle [position]="obstacle.position" />
+        }
+      }
+
+    </div>
+  }
+</div>
